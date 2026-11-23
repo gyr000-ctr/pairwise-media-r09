@@ -49,6 +49,34 @@ def _check_type():
 def _check_zero_weights():
     return _raises(lambda: _s().sample([[0.0, 0.0]], 5))
 
+
+def _check_smoke8():
+    return isinstance(spawn.Spawn(0).sample(W, 1), list)
+
+
+def _check_smoke9():
+    return all(0 <= i < 2 and 0 <= j < 2 for i, j in _s().sample(W, 30))
+
+
+def _check_smoke10():
+    return _s().sample(W, 15) == _s().sample(W, 15)
+
+
+def _check_smoke11():
+    return spawn.Spawn(11).sample(W, 10) != spawn.Spawn(12).sample(W, 10)
+
+
+def _check_smoke12():
+    return _raises(lambda: _s().sample([[1.0, -1.0]], 5))
+
+
+def _check_smoke13():
+    return _raises(lambda: _s().sample([[1.0, float("nan")]], 5))
+
+
+def _check_smoke14():
+    return _raises(lambda: _s().sample(W, "10"))
+
 CASES = [("count", "_check_count"), ("bounds", "_check_bounds"), ("det", "_check_det"), ("seed_diff", "_check_seed_diff"), ("bad_weights", "_check_bad_weights"), ("bad_n", "_check_bad_n"), ("type", "_check_type"), ("zero_weights", "_check_zero_weights"), ("smoke8", "_check_smoke8"), ("smoke9", "_check_smoke9"), ("smoke10", "_check_smoke10"), ("smoke11", "_check_smoke11"), ("smoke12", "_check_smoke12"), ("smoke13", "_check_smoke13"), ("smoke14", "_check_smoke14")]
 
 
